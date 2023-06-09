@@ -19,6 +19,10 @@ private:
 public:
     Handling(Football_Fantasy *pFantasy_);
 
+    Player *find_player_of_teams(vector<team *> teams, string name);
+
+    void assist_handler(string commands, vector<team *> teams, int num_week);
+
     team *find_team(vector<team *> teams, string name);
 
     void seprate_names(string names, string post, vector<Player *> &players);
@@ -34,6 +38,10 @@ public:
     void show_players();
 
     string &setPost(string &post);
+
+    void player_in_match(string word, string post, vector<team *> teams,  int num_week);
+
+    void find_players_playing(string names, vector<team *> teams, int num_week);
 
     void show_match_week();
 

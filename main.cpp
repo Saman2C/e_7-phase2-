@@ -11,18 +11,23 @@ float set_player_price(string name)
     return score;
 }
 
-void seprate_names(string names, string post, vector<Player *> &players) {
+void seprate_names(string names, string post, vector<Player *> &players)
+{
     stringstream ss(names);
     string word;
     vector<float> scores(NUM_WEEK);
     vector<bool> injured(NUM_WEEK);
+    vector<int> num_goals_(NUM_WEEK);
+    vector<int> num_assists_(NUM_WEEK);
     while (getline(ss, word, ';'))
     {
-        players.push_back(new Player(word, post, false, 0, scores, injured));
+        int price = set_player_price(word);
+        players.push_back(new Player(word, post, false, 0, scores, injured, price, num_goals_, num_assists_));
     }
 }
 
-vector<team *> read_input_league_files(string directory_location) {
+    vector<team *> read_input_league_files(string directory_location)
+{
     string file_location = directory_location + "/premier_league.csv";
     ifstream file(file_location);
     string line, field;
@@ -57,7 +62,8 @@ vector<team *> read_input_league_files(string directory_location) {
     return teams;
 }
 
-vector<week *> read_weeks_files(string folderPath, vector<team *> teams_,Handling *pFantasy) {
+vector<week *> read_weeks_files(string folderPath, vector<team *> teams_, Handling *pFantasy)
+{
     int num_week = 0;
     vector<week *> weeks;
     vector<string> csv_files = pFantasy->get_csv_files_in_folder(folderPath);
@@ -66,7 +72,6 @@ vector<week *> read_weeks_files(string folderPath, vector<team *> teams_,Handlin
         ifstream file(folderPath + "/" + csv_file);
         string line, field;
         vector<match *> matches;
-
         getline(file, line);
         while (getline(file, line))
         {
@@ -88,13 +93,20 @@ vector<week *> read_weeks_files(string folderPath, vector<team *> teams_,Handlin
             pFantasy->find_injured_players(injured, team1, team2, num_week);
             getline(ss, field, ',');
             string yellow_cards = field;
-            pFantasy->find_yellow_card_players(yellow_cards, team1, team2,num_week);
+            pFantasy->find_yellow_card_players(yellow_cards, team1, team2, num_week);
             getline(ss, field, ',');
             string red_cards = field;
-            pFantasy->find_red_car_players(red_cards, team1, team2,num_week);
+            pFantasy->find_red_car_players(red_cards, team1, team2, num_week);
             getline(ss, field, ',');
-            string players_scores = field;
-            pFantasy->set_players_scores(players_scores, team1, team2, num_week);
+            string assist = field;
+            pFantasy->assist_handler(assist, teams_, num_week);
+            getline(ss, field, ',');
+            string player_team1 = field;
+            pFantasy->find_players_playing(player_team1, teams_, num_week);
+            getline(ss, field, ',');
+            string player_team2 = field;
+            pFantasy->find_players_playing(player_team2, teams_, num_week);
+
             matches.push_back(new match(team1, team2, goal_team_1, goal_team_2, num_week));
         }
         weeks.push_back(new week(matches));
@@ -104,7 +116,6 @@ vector<week *> read_weeks_files(string folderPath, vector<team *> teams_,Handlin
     return weeks;
 }
 
-
 int main()
 {
     vector<team *> teams_;
@@ -113,7 +124,7 @@ int main()
     string path_folder = "data/weeks_stats";
     Handling handle2;
     teams_ = read_input_league_files(assets_folder);
-    weeks_ = read_weeks_files(path_folder, teams_,&handle2);
+    weeks_ = read_weeks_files(path_folder, teams_, &handle2);
     league league1(teams_, weeks_);
     Football_Fantasy football_fantasy(league1);
     football_fantasy.fill_the_players();
