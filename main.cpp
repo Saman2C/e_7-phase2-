@@ -15,13 +15,14 @@ void seprate_names(string names, string post, vector<Player *> &players)
 {
     stringstream ss(names);
     string word;
-    vector<float> scores(NUM_WEEK);
-    vector<bool> injured(NUM_WEEK);
-    vector<int> num_goals_(NUM_WEEK);
-    vector<int> num_assists_(NUM_WEEK);
+    vector<float> scores(NUM_WEEK,0);
+    vector<bool> injured(NUM_WEEK,false);
+    vector<int> num_goals_(NUM_WEEK,0);
+    vector<int> num_assists_(NUM_WEEK,0);
     while (getline(ss, word, ';'))
     {
         int price = set_player_price(word);
+        word=word.substr(0,word.find(':'));
         players.push_back(new Player(word, post, false, 0, scores, injured, price, num_goals_, num_assists_));
     }
 }

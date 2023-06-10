@@ -69,3 +69,11 @@ bool team::sortScore(Player *a, Player *b)
 bool team::sortName(Player *a, Player *b) {
     return a->get_player_name() < b->get_player_name();
 }
+
+void team::updatePlayersScores(int result,int week) {
+    for (auto player:players) {
+        float score=result;
+        score+=player->calcScore();
+        player->set_score(week,score)
+    }
+}

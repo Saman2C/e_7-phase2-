@@ -37,7 +37,7 @@ public:
     int GA_;
     int GF_;
     int GD_;
-
+    void updatePlayersScores(int result,int week);
 private:
     string team_name;
     vector<Player *> players;
@@ -46,6 +46,7 @@ private:
     vector<int> scores;
 
     void print_players(const string &post,vector<Player *> &Players);
+
 };
 
 #endif

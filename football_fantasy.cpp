@@ -216,12 +216,19 @@ void Football_Fantasy::show_match_week(int week)
 
 void Football_Fantasy::updateScores() {
     league1.set_score_teams();
+
 }
 
 void Football_Fantasy::increase_num_week() {
     current_week++;
     for(auto player :players)
         player->set_week(current_week);
+}
+
+void Football_Fantasy::updatePlayerScores() {
+    for(auto player :players){
+        player->calcScore();
+    }
 }
 
 

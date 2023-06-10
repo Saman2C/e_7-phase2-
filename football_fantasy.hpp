@@ -46,6 +46,7 @@ public:
     void show_match_week(int week);
     void updateScores();
 
+
 private:
     int current_week;
     vector<User *> users;

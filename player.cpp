@@ -11,12 +11,18 @@ Player::Player(string name_, string post_, bool red_card_, int yellow_card_, vec
         red_card = red;
         vector<bool> yellow(NUM_WEEK, false);
         yellow_card = yellow;
+        is_playing=yellow;
         scores = scores_;
         injured = injured_;
         selected_week = 0;
         price = price_;
-        num_assists = num_assists_;
-        num_goals = num_goals_;
+       // num_assists = num_assists_;
+       // num_goals = num_goals_;
+        vector<int> goals(NUM_WEEK,0);
+        vector<int> assist(NUM_WEEK,0);
+        num_goals=goals;
+        num_assists=assist;
+
     }
 }
 
@@ -71,4 +77,9 @@ int Player::calc_yellow()
         if (yellow)
             yellows++;
     return yellows;
+}
+
+int Player::calcScore() {
+    if(post=="goal_keeper"){}
+    return 0; 
 }

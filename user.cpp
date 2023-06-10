@@ -49,6 +49,7 @@ void User::add_player(Player *player) {
     if (!is_team_completed()) {
         players.push_back(player);
         increas_num_post(player->get_player_post());
+        budget-=player->get_price();
         if(players.size()==5)
             is_completed_team=true;
         cout << "OK"<<endl;
@@ -75,7 +76,10 @@ string User::get_name_of_player_base_post(string post, vector<Player *> &players
         if (player->get_post() == post) {
             auto it = find(players_.begin(), players_.end(), player);
             players_.erase(it);
-            return player->get_player_name();
+            string output=player->get_player_name();
+            if(player==captain)
+                output+=" (CAPTAIN)";
+            return output;
         }
     }
     return "";
@@ -84,6 +88,8 @@ string User::get_name_of_player_base_post(string post, vector<Player *> &players
 float User::calculate_team_score() {
     float total_score = 0;
     for (auto player: players) {
+        if(player==captain)
+            total_score += player->get_score();
         total_score += player->get_score();
     }
     return total_score;
@@ -103,12 +109,44 @@ void User::print_team_information() {
     cout << "Midfielder: " << get_name_of_player_base_post("midfielder", players_) << endl;
     cout << "Forward: " << get_name_of_player_base_post("forward", players_) << endl;
     cout << "Total Points: " << calculate_team_score() << endl;
+    cout << "Team Cost: " << BUDGET-budget << endl;
 }
 
 float User::totalPoint() {
     float total_point = 0;
-    for (auto player: players)
+    for (auto player: players){
+        if(player==captain)
+            total_point += player->totalScore();
         total_point += player->totalScore();
+    }
+
     return total_point;
+}
+
+User::User(string name_team_, string password_) {
+    vector<int> num_sell(NUM_WEEK, 0);
+    num_of_sell_in_each_week = num_sell;
+    name_team = name_team_;
+    password = password_;
+    adminity = false;
+    num_defenders=0;
+    num_forwards=0;
+    num_goalkeepers=0 ;
+    num_midfielder=0;
+    is_completed_team=false;
+    budget=BUDGET;
+    captain== nullptr;
+}
+
+void User::set_captain(string name) {
+    for (auto player:players) {
+        if(player->get_player_name()==name){
+            captain=player;
+            cout<<"OK"<<endl;
+            return;
+        }
+
+    }
+    cout<<"Not Found"<<endl;
 }
 
