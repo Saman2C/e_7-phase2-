@@ -42,11 +42,13 @@ public:
     void increase_assist(int week) { num_assists[week]++; }
     void set_week_is_playing(int week) { is_playing[week] = true; }
     void set_post(string post_) { post = post_; }
+    void set_location(string location_) { location = location_; }
 
 private:
     int price;
     string name;
     string post;
+    string location;
     vector<bool> red_card;
     vector<bool> yellow_card;
     vector<float> scores;

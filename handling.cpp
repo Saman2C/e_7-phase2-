@@ -280,11 +280,11 @@ void Handling::find_red_car_players(string red_card_players, team *team1, team *
     }
 }
 
-void Handling::player_in_match(string word, string post, vector<team *> teams,  int num_week)
+void Handling::player_in_match(string word, string location, vector<team *> teams,  int num_week)
 {
     Player *player = find_player_of_teams(teams, word);
     player->set_week_is_playing(num_week);
-    player->set_post(post);
+    player->set_location(location);
 }
 
 void Handling::find_players_playing(string names, vector<team *> teams, int num_week)
