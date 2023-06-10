@@ -39,6 +39,8 @@ public:
     float totalScore();
     void increase_goal(int week) { num_goals[week]++; }
     void decrease_goal(int week) { num_goals[week]--; }
+    int get_price(){return price;}
+    int calcScore();
     void increase_assist(int week) { num_assists[week]++; }
     void set_week_is_playing(int week) { is_playing[week] = true; }
     void set_post(string post_) { post = post_; }

@@ -6,6 +6,10 @@
 #include "libs.hpp"
 #include "team.hpp"
 
+const int WINNER=5;
+const int LOSER=-1;
+const int EQUAL=1;
+
 class match
 {
 public:
