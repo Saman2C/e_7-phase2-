@@ -86,7 +86,7 @@ float Player::cal_player_score_base_match(int num_week, int GF, int GA) {
     } else if (post == "forward") {
         score = forwardScore(num_week, GF, score);
     }
-    return convertRawScore(score);
+    scores.push_back(convertRawScore(score));
 }
 
 int Player::forwardScore(int num_week, int GF, int score) {
