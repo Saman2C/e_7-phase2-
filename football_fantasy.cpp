@@ -225,10 +225,10 @@ void Football_Fantasy::increase_num_week() {
         player->set_week(current_week);
 }
 
-void Football_Fantasy::updatePlayerScores() {
+/*void Football_Fantasy::updatePlayerScores() {
     for(auto player :players){
         player->calcScore();
     }
-}
+}*/
 
 
