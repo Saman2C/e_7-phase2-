@@ -11,18 +11,17 @@ Player::Player(string name_, string post_, bool red_card_, int yellow_card_, vec
         red_card = red;
         vector<bool> yellow(NUM_WEEK, false);
         yellow_card = yellow;
-        is_playing=yellow;
+        is_playing = yellow;
         scores = scores_;
         injured = injured_;
         selected_week = 0;
         price = price_;
-       // num_assists = num_assists_;
-       // num_goals = num_goals_;
-        vector<int> goals(NUM_WEEK,0);
-        vector<int> assist(NUM_WEEK,0);
-        num_goals=goals;
-        num_assists=assist;
-
+        // num_assists = num_assists_;
+        // num_goals = num_goals_;
+        vector<int> goals(NUM_WEEK, 0);
+        vector<int> assist(NUM_WEEK, 0);
+        num_goals = goals;
+        num_assists = assist;
     }
 }
 
@@ -79,7 +78,70 @@ int Player::calc_yellow()
     return yellows;
 }
 
-int Player::calcScore() {
-    if(post=="goal_keeper"){}
-    return 0; 
+/*set base scores in constructor*/
+
+int Player::cal_player_score_base_match(int num_week, int GF, int GA)
+{
+    int score = 0;
+    if(num_own_goals[num_week] > 0 )
+    {
+        score -= 3;
+    }
+    if (post == "goal_keeper")
+    {
+        if(GA == 0)
+        {
+            score +=5;
+        }
+        else
+        {
+            score -= (GA * 1);
+        }
+    }
+    else if (post == "deafender")
+    {
+        if(GA == 0)
+        {
+            score += 2;
+        }
+        score += (num_goals[num_week] * 4);
+        score += (num_assists[num_week] * 3);
+    }
+    else if (post == "midfielder")
+    {
+        if(GA == 0)
+        {
+            score += 1;
+        }
+        score += (num_goals[num_week] * 3);
+        score += (num_assists[num_week] * 2);
+    }
+    else if (post == "forward")
+    {
+        if(GF == 0)
+        {
+            score += -1;
+        }
+        score += (num_goals[num_week] * 3);
+        score += (num_assists[num_week] * 1);
+    }
+    return score;
+}
+
+/*It has to be fixed*/
+int Player::calcScore()
+{
+    if (post == "goal_keeper")
+    {
+    }
+    else if (post == "deafender")
+    {
+    }
+    else if (post == "midfielder")
+    {
+    }
+    else if (post == "forward")
+    {
+    }
+    return 0;
 }

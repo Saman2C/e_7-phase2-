@@ -32,7 +32,7 @@ public:
     void show_sorted_players(string post);
     static bool sortScore(Player *a, Player *b);
     static bool sortName(Player *a, Player *b);
-    
+    int cal_score_for_players(int num_week);
     int score;
     int GA_;
     int GF_;

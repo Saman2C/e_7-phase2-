@@ -15,19 +15,19 @@ void seprate_names(string names, string post, vector<Player *> &players)
 {
     stringstream ss(names);
     string word;
-    vector<float> scores(NUM_WEEK,0);
-    vector<bool> injured(NUM_WEEK,false);
-    vector<int> num_goals_(NUM_WEEK,0);
-    vector<int> num_assists_(NUM_WEEK,0);
+    vector<float> scores(NUM_WEEK, 0);
+    vector<bool> injured(NUM_WEEK, false);
+    vector<int> num_goals_(NUM_WEEK, 0);
+    vector<int> num_assists_(NUM_WEEK, 0);
     while (getline(ss, word, ';'))
     {
         int price = set_player_price(word);
-        word=word.substr(0,word.find(':'));
+        word = word.substr(0, word.find(':'));
         players.push_back(new Player(word, post, false, 0, scores, injured, price, num_goals_, num_assists_));
     }
 }
 
-    vector<team *> read_input_league_files(string directory_location)
+vector<team *> read_input_league_files(string directory_location)
 {
     string file_location = directory_location + "/premier_league.csv";
     ifstream file(file_location);

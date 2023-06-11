@@ -45,6 +45,7 @@ public:
     void fill_the_players();
     void show_match_week(int week);
     void updateScores();
+    void updatePlayerScores();
 
 
 private:

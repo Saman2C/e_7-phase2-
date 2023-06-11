@@ -38,13 +38,18 @@ public:
     float avg_score();
     float totalScore();
     void increase_goal(int week) { num_goals[week]++; }
-    void decrease_goal(int week) { num_goals[week]--; }
-    int get_price(){return price;}
+    void decrease_goal(int week) { num_own_goals[week]++; }
+    int get_price() { return price; }
     int calcScore();
     void increase_assist(int week) { num_assists[week]++; }
     void set_week_is_playing(int week) { is_playing[week] = true; }
     void set_post(string post_) { post = post_; }
     void set_location(string location_) { location = location_; }
+    bool is_player_playing(int num_week) { return is_playing[num_week]; }
+    int get_num_goal(int num_week) { return num_goals[num_week]; }
+    int get_num_own_goal(int num_week) { return num_own_goals[num_week]; }
+    int get_num_assist(int num_week) { return num_assists[num_week]; }
+    int cal_player_score_base_match(int num_week, int GF, int GA);
 
 private:
     int price;
@@ -56,6 +61,7 @@ private:
     vector<float> scores;
     vector<bool> injured;
     vector<int> num_goals;
+    vector<int> num_own_goals;
     vector<int> num_assists;
     vector<bool> is_playing;
     int selected_week;
