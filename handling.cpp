@@ -233,25 +233,25 @@ void Handling::find_players_playing(string names, vector<team *> teams, int num_
     getline(ss, word, ';');
     player_in_match(word, "goal_keeper", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "defender_left", teams, num_week);
+    player_in_match(word, "left", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "defender_mid_left", teams, num_week);
+    player_in_match(word, "middle", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "defender_mid_right", teams, num_week);
+    player_in_match(word, "middle", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "defender_right", teams, num_week);
+    player_in_match(word, "right", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "midfielder_left", teams, num_week);
+    player_in_match(word, "midfielder", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "midfielder_center", teams, num_week);
+    player_in_match(word, "midfielder", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "midfielder_right", teams, num_week);
+    player_in_match(word, "midfielder", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "forward_left", teams, num_week);
+    player_in_match(word, "left", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "forward_center", teams, num_week);
+    player_in_match(word, "middle", teams, num_week);
     getline(ss, word, ';');
-    player_in_match(word, "forward_right", teams, num_week);
+    player_in_match(word, "right", teams, num_week);
 }
 
 void Handling::signup_user() {

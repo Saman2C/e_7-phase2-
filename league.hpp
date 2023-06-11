@@ -22,7 +22,7 @@ public:
     void showTable(int week);
     team *find_team(string name);
     void showWeek(int week_);
-    void set_score_teams();
+    void set_score_teams(int num_week);
 
 private:
     vector<team *> teams;

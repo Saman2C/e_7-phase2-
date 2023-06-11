@@ -83,15 +83,15 @@ int Player::calc_yellow()
 int Player::cal_player_score_base_match(int num_week, int GF, int GA)
 {
     int score = 0;
-    if(num_own_goals[num_week] > 0 )
+    if (num_own_goals[num_week] > 0)
     {
         score -= 3;
     }
     if (post == "goal_keeper")
     {
-        if(GA == 0)
+        if (GA == 0)
         {
-            score +=5;
+            score += 5;
         }
         else
         {
@@ -100,7 +100,7 @@ int Player::cal_player_score_base_match(int num_week, int GF, int GA)
     }
     else if (post == "deafender")
     {
-        if(GA == 0)
+        if (GA == 0)
         {
             score += 2;
         }
@@ -109,7 +109,7 @@ int Player::cal_player_score_base_match(int num_week, int GF, int GA)
     }
     else if (post == "midfielder")
     {
-        if(GA == 0)
+        if (GA == 0)
         {
             score += 1;
         }
@@ -118,7 +118,7 @@ int Player::cal_player_score_base_match(int num_week, int GF, int GA)
     }
     else if (post == "forward")
     {
-        if(GF == 0)
+        if (GF == 0)
         {
             score += -1;
         }

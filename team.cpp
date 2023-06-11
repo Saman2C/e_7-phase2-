@@ -76,28 +76,85 @@ bool team::sortName(Player *a, Player *b)
     return a->get_player_name() < b->get_player_name();
 }
 
+void team::update_total_num_goal(int num_week)
+{
+    for (auto player : players)
+    {
+        if (player->get_location() == "left")
+        {
+            num_goals_left[num_week]++;
+        }
+        else if (player->get_location() == "right")
+        {
+            num_goals_right[num_week]++;
+        }
+        else if (player->get_location() == "middle")
+        {
+            num_goals_center[num_week]++;
+        }
+        else if (player->get_location() == "midfielder")
+        {
+            num_goals_midfielder[num_week]++;
+        }
+    }
+}
+
 void team::updatePlayersScores(int result, int week)
 {
+    update_total_num_goal(week);
     for (auto player : players)
     {
         float score = result;
         if (player->is_player_playing(week))
         {
             score += player->cal_player_score_base_match(week, GF[week], GA[week]);
-            player->set_score(week, score);
+            player->update_score(week, score);
         }
     }
 }
 
-int team::cal_score_for_players(int num_week)
+void team::decrease_score_for_location(int num_week, string post, int decreasing_score)
 {
-    int score = 0;
-    for(auto player : players)
+    for(auto player :players)
     {
-        if(player->is_player_playing(num_week))
+        if(player->get_location() == post)
         {
-           
-
+            player->update_score(decreasing_score, num_week);
         }
     }
 }
+
+void team::update_num_goal_left(int num_week, Player *player)
+{
+    num_goals_left[num_week] += player->get_num_goal(num_week);
+}
+
+void team::update_num_goal_midfielder(int num_week, Player *player)
+{
+    num_goals_midfielder[num_week] += player->get_num_goal(num_week);
+}
+
+void team::update_num_goal_right(int num_week, Player *player)
+{
+    num_goals_right[num_week] += player->get_num_goal(num_week);
+}
+
+void team::update_num_goal_center(int num_week, Player *player)
+{
+    num_goals_center[num_week] += player->get_num_goal(num_week);
+}
+
+void team::update_num_goal_base_post(int num_week)
+{
+    for (auto player : players)
+    {
+        if (player->is_player_playing(num_week))
+        {
+            if (player->get_post() == "deafender")
+            {
+
+            }
+        }
+    }
+}
+

@@ -215,7 +215,7 @@ void Football_Fantasy::show_match_week(int week)
 }
 
 void Football_Fantasy::updateScores() {
-    league1.set_score_teams();
+    league1.set_score_teams(current_week);
 
 }
 

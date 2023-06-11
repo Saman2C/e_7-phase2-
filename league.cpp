@@ -42,10 +42,10 @@ void league::showWeek(int week_) {
     }
 }
 
-void league::set_score_teams() {
+void league::set_score_teams(int num_week) {
     for (auto week : weeks){
         for (auto match : week->get_match()){
-            match->update_teams();
+            match->update_teams(num_week);
         }
     }
 }
