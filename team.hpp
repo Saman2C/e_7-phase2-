@@ -11,7 +11,7 @@ class team
 {
 public:
     team(string team_name_,
-         vector<Player *> players_,
+         vector<struct Player *> players_,
          vector<int> GF_,
          vector<int> GA_,
          vector<int> scores_);

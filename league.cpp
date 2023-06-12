@@ -47,5 +47,6 @@ void league::set_score_teams(int num_week) {
         for (auto match : week->get_match()){
             match->update_teams(num_week);
         }
+        num_week++;
     }
 }

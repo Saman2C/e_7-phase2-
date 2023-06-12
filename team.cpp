@@ -1,7 +1,7 @@
 #include "team.hpp"
 
 team ::team(string team_name_,
-            vector<Player *> players_,
+            vector<struct Player *> players_,
             vector<int> GF_,
             vector<int> GA_,
             vector<int> scores_)
@@ -12,6 +12,12 @@ team ::team(string team_name_,
     GF = GF_;
     scores = scores_;
     score = 0;
+    num_goals_center=vector<int> (NUM_WEEK,0);
+    num_goals_left=vector<int> (NUM_WEEK,0);
+    num_goals_right=vector<int> (NUM_WEEK,0);
+    num_goals_midfielder=vector<int> (NUM_WEEK,0);
+
+
 }
 
 int team ::calc_GD(int week)
@@ -80,35 +86,44 @@ void team::update_total_num_goal(int num_week)
 {
     for (auto player : players)
     {
-        if (player->get_location() == "left")
-        {
-            num_goals_left[num_week]++;
+        if(player->is_player_playing(num_week)){
+            if (player->get_location() == "left")
+            {
+                num_goals_left[num_week]+=player->get_num_goal(num_week);
+            }
+            else if (player->get_location() == "right")
+            {
+                num_goals_right[num_week]+=player->get_num_goal(num_week);
+            }
+            else if (player->get_location() == "middle")
+            {
+                num_goals_center[num_week]+=player->get_num_goal(num_week);
+            }
+            else if (player->get_location() == "midfielder")
+            {
+                num_goals_midfielder[num_week]+=player->get_num_goal(num_week);
+            }
         }
-        else if (player->get_location() == "right")
-        {
-            num_goals_right[num_week]++;
         }
-        else if (player->get_location() == "middle")
-        {
-            num_goals_center[num_week]++;
-        }
-        else if (player->get_location() == "midfielder")
-        {
-            num_goals_midfielder[num_week]++;
-        }
-    }
+
 }
 
 void team::updatePlayersScores(int result, int week)
 {
-    update_total_num_goal(week);
+    //update_total_num_goal(week);
     for (auto player : players)
     {
-        float score = result;
+
         if (player->is_player_playing(week))
         {
+            float score = float(result);
             score += player->cal_player_score_base_match(week, GF[week], GA[week]);
-            player->update_score(week, score);
+            player->update_score(score,week);
+            player->set_week(week);
+            float raw_score=player->get_score()+score;
+            float score_=player->convertRawScore(raw_score);
+            player->update_score(-player->get_score(),week);
+            player->update_score(score_,week);
         }
     }
 }

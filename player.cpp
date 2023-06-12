@@ -72,10 +72,10 @@ int Player::calc_yellow() {
 
 
 float Player::cal_player_score_base_match(int num_week, int GF, int GA) {
-    int score = 0;
+    float score = 0;
     if (num_own_goals[num_week] > 0)
     {
-        score -= 3;
+        score -= (3 * num_own_goals[num_week]) ;
     }
     if (post == "goal_keeper") {
         score = GoalkeeperScore(GA, score);
@@ -86,7 +86,7 @@ float Player::cal_player_score_base_match(int num_week, int GF, int GA) {
     } else if (post == "forward") {
         score = forwardScore(num_week, GF, score);
     }
-    scores.push_back(convertRawScore(score));
+    return score;
 }
 
 int Player::forwardScore(int num_week, int GF, int score) {
@@ -108,6 +108,7 @@ int Player::midfielderScore(int num_week, int GA, int score) {
 }
 
 int Player::defenderScore(int num_week, int GA, int score) {
+    score+=1;
     if (GA == 0) {
         score += 2;
     }
@@ -117,6 +118,7 @@ int Player::defenderScore(int num_week, int GA, int score) {
 }
 
 int Player::GoalkeeperScore(int GA, int score) const {
+    score+=3;
     if (GA == 0) {
         score += 5;
     } else {
@@ -126,7 +128,7 @@ int Player::GoalkeeperScore(int GA, int score) const {
 }
 
 float Player::convertRawScore(int raw_score) {
-    float score = raw_score / 6.0;
+    float score = -raw_score / 6.0;
     score = exp(score);
     score += 1;
     score = 1 / score;

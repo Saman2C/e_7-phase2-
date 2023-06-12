@@ -51,8 +51,8 @@ public:
     int get_num_own_goal(int num_week) { return num_own_goals[num_week]; }
     int get_num_assist(int num_week) { return num_assists[num_week]; }
     float cal_player_score_base_match(int num_week, int GF, int GA);
-    string get_location() { return post; }
-    void update_score(int score, int num_week) { scores[num_week] += score; }
+    string get_location() { return location; }
+    void update_score(float score, int num_week) { scores[num_week] += score; }
 
 private:
     int price;

@@ -16,7 +16,6 @@ match ::match(team *team_1_,
 void match::update_lost_score_right_team1(int num_week)
 {
     vector<int> num_goals = team_1->get_goals_right();
-    num_goals = team_1->get_goals_right();
     if (num_goals[num_week] > 0)
     {
         for (auto player : team_2->get_team_players())
@@ -137,6 +136,8 @@ void match::update_lost_score_midfielder_team2(int num_week)
 
 void match::calculate_total_score_is_lost_team(int num_week)
 {
+    team_1->update_total_num_goal(num_week);
+    team_2->update_total_num_goal(num_week);
     update_lost_score_right_team1(num_week);
     update_lost_score_left_team1(num_week);
     update_lost_score_center_team1(num_week);
@@ -150,6 +151,7 @@ void match::calculate_total_score_is_lost_team(int num_week)
 
 void match::update_teams(int num_week)
 {
+    num_week--;
     calculate_total_score_is_lost_team(num_week);
     if (goal_team_1 > goal_team_2)
     {
@@ -157,6 +159,7 @@ void match::update_teams(int num_week)
         team_1->updatePlayersScores(WINNER, week);
         team_2->updateData(goal_team_2, goal_team_1, 0, week);
         team_2->updatePlayersScores(LOSER, week);
+
     }
     else if (goal_team_1 < goal_team_2)
     {

@@ -34,14 +34,14 @@ vector<team *> read_input_league_files(string directory_location)
     string line, field;
     getline(file, line);
     vector<team *> teams;
-    vector<Player *> total_players;
+    vector<Player*> total_players;
     vector<int> GF;
     vector<int> GA;
     vector<int> scores;
     while (getline(file, line))
     {
         stringstream ss(line);
-        vector<Player *> players;
+        vector<Player*> players;
         getline(ss, field, ',');
         string Team_name = field;
         getline(ss, field, ',');
