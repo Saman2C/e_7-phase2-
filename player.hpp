@@ -45,20 +45,20 @@ public:
     void increase_assist(int week) { num_assists[week]++; }
     void set_week_is_playing(int week) { is_playing[week] = true; }
     void set_post(string post_) { post = post_; }
-    void set_location(string location_) { location = location_; }
+    void set_location(string location_) { location.push_back(location_); }
     bool is_player_playing(int num_week) { return is_playing[num_week]; }
     int get_num_goal(int num_week) { return num_goals[num_week]; }
     int get_num_own_goal(int num_week) { return num_own_goals[num_week]; }
     int get_num_assist(int num_week) { return num_assists[num_week]; }
     float cal_player_score_base_match(int num_week, int GF, int GA);
-    string get_location() { return location; }
+    string get_location(int num_week) { return location[num_week]; }
     void update_score(float score, int num_week) { scores[num_week] += score; }
 
 private:
     int price;
     string name;
     string post;
-    string location;
+    vector<string> location;
     vector<bool> red_card;
     vector<bool> yellow_card;
     vector<float> scores;

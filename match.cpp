@@ -20,7 +20,7 @@ void match::update_lost_score_right_team1(int num_week)
     {
         for (auto player : team_2->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "left")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "left")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }
@@ -35,7 +35,7 @@ void match::update_lost_score_left_team1(int num_week)
     {
         for (auto player : team_2->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "right")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "right")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }
@@ -50,7 +50,7 @@ void match::update_lost_score_center_team1(int num_week)
     {
         for (auto player : team_2->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "middle")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "middle")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }
@@ -80,7 +80,7 @@ void match::update_lost_score_right_team2(int num_week)
     {
         for (auto player : team_1->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "left")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "left")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }
@@ -95,7 +95,7 @@ void match::update_lost_score_left_team2(int num_week)
     {
         for (auto player : team_1->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "right")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "right")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }
@@ -110,7 +110,7 @@ void match::update_lost_score_center_team2(int num_week)
     {
         for (auto player : team_1->get_team_players())
         {
-            if (player->get_player_post() == "deafender" && player->get_location() == "middle")
+            if (player->get_player_post() == "deafender" && player->get_location(num_week) == "middle")
             {
                 player->update_score(-num_goals[num_week], num_week);
             }

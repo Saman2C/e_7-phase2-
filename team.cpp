@@ -87,19 +87,19 @@ void team::update_total_num_goal(int num_week)
     for (auto player : players)
     {
         if(player->is_player_playing(num_week)){
-            if (player->get_location() == "left")
+            if (player->get_location(num_week) == "left")
             {
                 num_goals_left[num_week]+=player->get_num_goal(num_week);
             }
-            else if (player->get_location() == "right")
+            else if (player->get_location(num_week) == "right")
             {
                 num_goals_right[num_week]+=player->get_num_goal(num_week);
             }
-            else if (player->get_location() == "middle")
+            else if (player->get_location(num_week) == "middle")
             {
                 num_goals_center[num_week]+=player->get_num_goal(num_week);
             }
-            else if (player->get_location() == "midfielder")
+            else if (player->get_location(num_week) == "midfielder")
             {
                 num_goals_midfielder[num_week]+=player->get_num_goal(num_week);
             }
@@ -132,7 +132,7 @@ void team::decrease_score_for_location(int num_week, string post, int decreasing
 {
     for(auto player :players)
     {
-        if(player->get_location() == post)
+        if(player->get_location(num_week) == post)
         {
             player->update_score(decreasing_score, num_week);
         }
