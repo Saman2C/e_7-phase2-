@@ -108,8 +108,11 @@ void Handling::postHandling(string &word) {
         pFantasy->increase_num_week();
         cout << "OK" << endl;
     }else if (word == "set_captain") {
-        pFantasy->increase_num_week();
-        cout << "OK" << endl;
+        string name,trash;
+        cin>> trash>>trash;
+        getline(cin,name);
+        name=name.substr(1);
+        pFantasy->current_user->set_captain(name);
     }
 }
 
@@ -224,7 +227,7 @@ void Handling::player_in_match(string word, string location, vector<team *> team
 {
     Player *player = find_player_of_teams(teams, word);
     player->set_week_is_playing(num_week);
-    player->set_location(location);
+    player->set_location(location,num_week);
 }
 
 void Handling::find_players_playing(string names, vector<team *> teams, int num_week) {
@@ -296,7 +299,7 @@ void Handling::getHandling(string &word) {
     } else if (word == "users_ranking") {
         pFantasy->show_users();
     }else if (word == "show_budget") {
-        pFantasy->current_user->get_budget();
+        cout<<pFantasy->current_user->get_budget()<<endl;
     }
 
 }
@@ -310,11 +313,14 @@ void Handling::buy_player() {
     if (player != NULL) {
         if (pFantasy->can_sell_player) {
             if (player->isAvailable(pFantasy->get_week())) {
-                if (pFantasy->current_user->is_post_free(player->get_player_post()) ||
-                    pFantasy->current_user->get_budget() >= player->get_price()) {
-                    pFantasy->current_user->add_player(player);
-                    pFantasy->current_user->change_budget(-player->get_price());
-                } else {
+                if(pFantasy->current_user->get_budget() >= player->get_price()) {
+                    if (pFantasy->current_user->is_post_free(player->get_player_post())) {
+                        pFantasy->current_user->add_player(player);
+                        pFantasy->current_user->change_budget(-player->get_price());
+                    } else {
+                        cout << "Bad Request" << endl;
+                    }
+                }else {
                     cout << "Bad Request" << endl;
                 }
             } else {
@@ -373,28 +379,37 @@ void Handling::show_players() {
     bool hasPost, hasRank;
     getline(cin, line);
     stringstream ss(line);
-    ss >> trash >> trash >> team_name;
+    ss >> trash >> trash>>team_name;
+    for(int j=0; j < team_name.length();j++)
+        if(team_name[j]=='_')
+            team_name.replace(j, 1, " ");
+
     if (ss >> post) {
         hasPost = true;
-        post = setPost(post);
+        post = setPost(post,hasRank,hasPost);
     }
     if (ss >> rank)
         hasRank = true;
     if (hasRank)
-        pFantasy->show_ranked_team_players(team_name, post);
+        pFantasy->show_ranked_team_players(team_name, post,pFantasy->get_week());
     else
-        pFantasy->show_team_players(team_name, post);
+        pFantasy->show_team_players(team_name, post,pFantasy->get_week());
 }
 
-string &Handling::setPost(string &post) {
+string &Handling::setPost(string &post,bool &ranks,bool &pst) {
     if (post == "gk")
         post = "goal_keeper";
-    if (post == "df")
+    else if (post == "df")
         post = "deafender";
-    if (post == "md")
+    else if (post == "md")
         post = "midfielder";
-    if (post == "fw")
+    else if (post == "fw")
         post = "forward";
+    else{
+        ranks=true;
+        pst=false;
+        post="";
+    }
     return post;
 }
 

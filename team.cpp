@@ -44,14 +44,14 @@ void team ::calc_scores(int week)
     score = score_;
 }
 
-void team::show_players(string post)
+void team::show_players(string post,int week)
 {
     vector<Player *> &Players = players;
     sort(Players.begin(), players.end(), sortName);
-    print_players(post, Players);
+    print_players(post, Players,week);
 }
 
-void team::print_players(const string &post, vector<Player *> &Players)
+void team::print_players(const string &post, vector<Player *> &Players,int week)
 {
     cout << "list of players:\n";
     int i = 1;
@@ -59,22 +59,27 @@ void team::print_players(const string &post, vector<Player *> &Players)
     {
         if (post == "" || player->get_post() == post)
         {
-            cout << i << ". name: " << player->get_player_name() << " | role: " << player->get_post() << " | score: " << player->get_score() << endl;
+            cout << i << ". name: " << player->get_player_name() << " | role: " << player->get_post()
+            << " | score: " << player->get_total_score() << " | cost: "<<player->get_price()<< " | goals: "
+            <<player->get_total_goals(week)<<" | goals: "<<player->get_total_assist(week);
+            if(player->get_post()!="forward")
+                cout <<" | clean sheets: "<<player->get_cleensheet();
+            cout<<endl;
             i++;
         }
     }
 }
 
-void team::show_sorted_players(string post)
+void team::show_sorted_players(string post,int week)
 {
     vector<Player *> &Players = players;
     sort(Players.begin(), Players.end(), sortScore);
-    print_players(post, Players);
+    print_players(post, Players,week);
 }
 
 bool team::sortScore(Player *a, Player *b)
 {
-    return a->get_score() < b->get_score();
+    return a->get_total_score() > b->get_total_score();
 }
 
 bool team::sortName(Player *a, Player *b)
@@ -123,6 +128,9 @@ void team::updatePlayersScores(int result, int week)
             float raw_score=player->get_score()+score;
             float score_=player->convertRawScore(raw_score);
             player->update_score(-player->get_score(),week);
+            score_*=10;
+            int sc=score_;
+            score_=sc/10.0;
             player->update_score(score_,week);
         }
     }

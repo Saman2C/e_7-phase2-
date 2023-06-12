@@ -163,16 +163,16 @@ User *Football_Fantasy::find_user_by_name(string name)
     return NULL;
 }
 
-void Football_Fantasy::show_ranked_team_players(string name, string post)
+void Football_Fantasy::show_ranked_team_players(string name, string post,int week)
 {
     auto team = league1.find_team(name);
-    team->show_sorted_players(post);
+    team->show_sorted_players(post,week);
 }
 
-void Football_Fantasy::show_team_players(string name, string post)
+void Football_Fantasy::show_team_players(string name, string post,int week)
 {
     auto team = league1.find_team(name);
-    team->show_players(post);
+    team->show_players(post,week);
 }
 void Football_Fantasy::fill_the_players()
 {

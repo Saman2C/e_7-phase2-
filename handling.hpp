@@ -37,7 +37,7 @@ public:
 
     void show_players();
 
-    string &setPost(string &post);
+    string &setPost(string &post,bool &ranks,bool &pst);
 
     void player_in_match(string word, string post, vector<team *> teams,  int num_week);
 

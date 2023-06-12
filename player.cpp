@@ -15,6 +15,7 @@ Player::Player(string name_, string post_, bool red_card_, int yellow_card_, vec
         injured = injured_;
         selected_week = 0;
         price = price_;
+        clean_sheet=0;
         // num_assists = num_assists_;
         // num_goals = num_goals_;
         vector<int> goals(NUM_WEEK, 0);
@@ -22,6 +23,8 @@ Player::Player(string name_, string post_, bool red_card_, int yellow_card_, vec
         num_goals = goals;
         num_assists = assist;
         num_own_goals=goals;
+        location= vector<string> (NUM_WEEK, "");
+
     }
 }
 
@@ -101,6 +104,7 @@ int Player::forwardScore(int num_week, int GF, int score) {
 int Player::midfielderScore(int num_week, int GA, int score) {
     if (GA == 0) {
         score += 1;
+        clean_sheet++;
     }
     score += (num_goals[num_week] * 3);
     score += (num_assists[num_week] * 2);
@@ -111,16 +115,18 @@ int Player::defenderScore(int num_week, int GA, int score) {
     score+=1;
     if (GA == 0) {
         score += 2;
+        clean_sheet++;
     }
     score += (num_goals[num_week] * 4);
     score += (num_assists[num_week] * 3);
     return score;
 }
 
-int Player::GoalkeeperScore(int GA, int score) const {
+int Player::GoalkeeperScore(int GA, int score) {
     score+=3;
     if (GA == 0) {
         score += 5;
+        clean_sheet++;
     } else {
         score -= (GA * 1);
     }
@@ -134,4 +140,25 @@ float Player::convertRawScore(int raw_score) {
     score = 1 / score;
     score *= 10;
     return score;
+}
+
+int Player::get_total_goals(int week) {
+    int sum=0;
+    for(auto goal:num_goals)
+        sum+=goal;
+    return sum;
+}
+
+int Player::get_total_assist(int week) {
+    int sum=0;
+    for(auto assist:num_assists)
+        sum+=assist;
+    return sum;
+}
+
+float Player::get_total_score() {\
+    float sum=0;
+    for(auto score:scores)
+        sum+=score;
+    return sum;
 }

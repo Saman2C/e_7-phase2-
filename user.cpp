@@ -49,7 +49,6 @@ void User::add_player(Player *player) {
     if (!is_team_completed()) {
         players.push_back(player);
         increas_num_post(player->get_player_post());
-        budget-=player->get_price();
         if(players.size()==5)
             is_completed_team=true;
         cout << "OK"<<endl;

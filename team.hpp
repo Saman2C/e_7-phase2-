@@ -29,8 +29,8 @@ public:
 
     void calc_scores(int week);
     int calc_GD(int week);
-    void show_players(string post);
-    void show_sorted_players(string post);
+    void show_players(string post,int week);
+    void show_sorted_players(string post,int week);
     static bool sortScore(Player *a, Player *b);
     static bool sortName(Player *a, Player *b);
     int score;
@@ -60,7 +60,7 @@ private:
     vector<int> num_goals_right;
     vector<int> num_goals_center;
     vector<int> num_goals_midfielder;
-    void print_players(const string &post, vector<Player *> &Players);
+    void print_players(const string &post, vector<Player *> &Players,int week);
 };
 
 #endif

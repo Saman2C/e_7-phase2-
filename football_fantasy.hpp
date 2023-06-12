@@ -26,8 +26,8 @@ public:
     Player *find_player(string name);
     bool can_sell() { return can_sell_player; }
     User *find_user_by_name(string name);
-    void show_ranked_team_players(string name,string post);
-    void show_team_players(string name,string post);
+    void show_ranked_team_players(string name,string post,int week);
+    void show_team_players(string name,string post,int week);
     void show_table(){league1.showTable(current_week-1);}
     User *current_user;
     bool can_sell_player;

@@ -2,13 +2,13 @@
 #define PLAYER_H
 
 #pragma once
+
 #include "libs.hpp"
 #include "team.hpp"
 
 const int NUM_WEEK = 19;
 
-class Player
-{
+class Player {
 public:
     Player(string name_,
            string post_,
@@ -18,8 +18,11 @@ public:
            vector<bool> injured_, int price_,
            vector<int> num_goals_,
            vector<int> num_assists_);
+
     bool isAvailable(int week);
+
     bool isInjured(int week);
+
     void set_injured(int index_week) { injured[index_week] = true; }
 
     void inc_yellow_card(int week) { yellow_card[week] = true; }
@@ -33,26 +36,55 @@ public:
     string get_player_post() { return post; }
 
     string get_player_name() { return name; }
+
+    int get_cleensheet(){return clean_sheet;}
+
     void set_week(int week) { selected_week = week; }
+
     float get_score() { return scores[selected_week]; }
+
+    float get_total_score();
+
     string get_post() { return post; }
+
+    int get_total_goals(int week);
+
+    int get_total_assist(int week);
+
     float avg_score();
+
     float totalScore();
+
     void increase_goal(int week) { num_goals[week]++; }
+
     void decrease_goal(int week) { num_own_goals[week]++; }
+
     int get_price() { return price; }
+
     float convertRawScore(int raw_score);
+
     void increase_assist(int week) { num_assists[week]++; }
+
     void set_week_is_playing(int week) { is_playing[week] = true; }
+
     void set_post(string post_) { post = post_; }
-    void set_location(string location_) { location.push_back(location_); }
+
+    void set_location(string location_, int num_week) { location[num_week] = location_; }
+
     bool is_player_playing(int num_week) { return is_playing[num_week]; }
+
     int get_num_goal(int num_week) { return num_goals[num_week]; }
+
     int get_num_own_goal(int num_week) { return num_own_goals[num_week]; }
+
     int get_num_assist(int num_week) { return num_assists[num_week]; }
+
     float cal_player_score_base_match(int num_week, int GF, int GA);
+
     string get_location(int num_week) { return location[num_week]; }
+
     void update_score(float score, int num_week) { scores[num_week] += score; }
+
 
 private:
     int price;
@@ -68,8 +100,9 @@ private:
     vector<int> num_assists;
     vector<bool> is_playing;
     int selected_week;
+    int clean_sheet;
 
-    int GoalkeeperScore(int GA, int score) const;
+    int GoalkeeperScore(int GA, int score);
 
     int defenderScore(int num_week, int GA, int score);
 
